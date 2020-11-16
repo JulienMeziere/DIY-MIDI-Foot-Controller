@@ -62,11 +62,11 @@ class MidiPedal {
     if (lastValue == newValue)
       return false;
     lastValue = newValue;
-    char newComputedValue = computeMidiValue(newValue);
+    char newComputedValue = computeMidiValue(lastValue);
     if (lastComputedValue == newComputedValue)
       return false;
     lastComputedValue = newComputedValue;
-    MIDI.sendControlChange(3, computeMidiValue(lastValue), 1);
+    MIDI.sendControlChange(3, lastComputedValue, 1);
     return true;
   }
 };
