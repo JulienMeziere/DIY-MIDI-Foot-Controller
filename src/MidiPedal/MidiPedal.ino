@@ -66,7 +66,7 @@ class MidiPedal {
     if (lastComputedValue == newComputedValue)
       return false;
     lastComputedValue = newComputedValue;
-    MIDI.sendControlChange(3, lastComputedValue, 1);
+    MIDI.sendControlChange(CC, lastComputedValue, channel);
     return true;
   }
 };
