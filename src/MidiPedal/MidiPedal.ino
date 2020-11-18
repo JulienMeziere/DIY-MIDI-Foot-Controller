@@ -2,8 +2,10 @@
 
 /*        CONSTANTS        */
 
-const short min = 0;      //  -----  knob min value
+const short min = 25;      //  -----  knob min value
 const short max = 1023;   //  -----  knob max value
+int potPin = 2;           //  -----  potentiometer pin
+int pot = 0;           //  -----  potentiometer value
 
 /*        MIDI INIT        */
 
@@ -45,7 +47,7 @@ class KnobSimulator {
 
 class MidiPedal {
   private:
-  const char CC = 3;        //  -----  number of MIDI controller (CC)
+  const char CC = 4;        //  -----  number of MIDI controller (CC)
   const char channel = 1;   //  -----  number of MIDI channel
 
   short lastValue = -1;
@@ -76,12 +78,13 @@ MidiPedal *pedal = NULL;
 
 void setup() {
   MIDI.begin(MIDI_CHANNEL_OMNI);
-  knob = new KnobSimulator();
+  //knob = new KnobSimulator();
   pedal = new MidiPedal();
 }
 
 void loop() {
-  pedal->sendMidiIfChanged(knob->readValue());
+  pot = analogRead(potPin);
+  pedal->sendMidiIfChanged(pot);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
